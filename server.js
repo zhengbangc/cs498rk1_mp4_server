@@ -88,7 +88,10 @@ usersRoute.post(function(req,res){
 	var user = new User();
 	user.name = req.body.name;
 	user.email = req.body.email;
-	user.pendingTasks = req.body.pendingTasks;
+	if(req.body.pendingTasks !== undefined)
+		user.pendingTasks = req.body.pendingTasks;
+	else
+		user.pendingTasks = [];
 	if (req.body.email === undefined || req.body.email === [])
 		return res.status(500).json({message: 'Validation Error: An email is required!', data: []});
 	if(req.body.name === undefined || req.body.name === [])
